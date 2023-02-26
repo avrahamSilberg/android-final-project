@@ -63,8 +63,8 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="76dp"
+        android:src="@drawable/no_person_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/detailsProductImage"
         app:layout_constraintTop_toBottomOf="@+id/seller_title" />
 
     <TextView
@@ -188,13 +188,13 @@
         android:layout_width="339dp"
         android:layout_height="42dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
         android:text="@string/product_description_label"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailsProductCondition" />
 
@@ -209,7 +209,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/detailsProductTitle"
         app:layout_constraintTop_toBottomOf="@id/detailsProductImage" />
-        
+
 <!--    <CheckBox-->
 <!--        android:id="@+id/detailsIsSoldCheckBox"-->
 <!--        android:layout_width="wrap_content"-->

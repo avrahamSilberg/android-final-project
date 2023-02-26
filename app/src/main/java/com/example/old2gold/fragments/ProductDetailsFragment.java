@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public class ProductDetailsFragment extends Fragment {
 
     ImageView imageUrl, sellerImage;
-    TextView title, price, category, description, sellerName;
+    TextView title,  category, description, sellerName;
     FloatingActionButton editButton, deleteButton;
     ProgressBar progressBar;
     View view;
@@ -135,7 +135,7 @@ public class ProductDetailsFragment extends Fragment {
                             .load(user.getUserImageUrl())
                             .into(sellerImage);
                 } else {
-                    sellerImage.setImageResource(R.drawable.no_product_image);
+                    sellerImage.setImageResource(R.drawable.no_person_image);
                 }
 
                 sellerName.setText(user.getFirstName() + " " + user.getLastName());
