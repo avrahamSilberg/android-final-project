@@ -17,10 +17,6 @@
             android:icon="@drawable/ic_baseline_favorite_24"
             android:title="@string/menu_liked_items" />
         <item
-            android:id="@+id/nav_map_view"
-            android:icon="@android:drawable/ic_dialog_map"
-            android:title="@string/menu_map_view" />
-        <item
             android:id="@+id/nav_user_profile"
             android:icon="@drawable/ic_baseline_person_24"
             android:title="user profile" />
