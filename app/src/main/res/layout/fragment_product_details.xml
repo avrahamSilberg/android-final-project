@@ -102,21 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detailsProductTitle" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/detailProductGender3"-->
-<!--        android:layout_width="114dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="1dp"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:text="@string/product_gender_label"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/detailProductGender"-->
-<!--        app:layout_constraintHorizontal_bias="0.627"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/detailsProductTitle" />-->
-
     <TextView
         android:id="@+id/detailProductCategoryLabel"
         android:layout_width="114dp"
@@ -153,21 +138,6 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detailProductCategory" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/detailsProductCondition2"-->
-<!--        android:layout_width="114dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginStart="1dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:text="@string/product_condition_label"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/detailsProductCondition"-->
-<!--        app:layout_constraintHorizontal_bias="0.717"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/detailProductCategoryLabel" />-->
 
     <TextView
         android:id="@+id/detailsProductDescription"
@@ -209,21 +179,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/detailsProductTitle"
         app:layout_constraintTop_toBottomOf="@id/detailsProductImage" />
-
-<!--    <CheckBox-->
-<!--        android:id="@+id/detailsIsSoldCheckBox"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Sold:"-->
-<!--        android:textColor="#8E8A8A"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:enabled="false"-->
-<!--        android:button="@null"-->
-<!--        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/detailsProductDescription"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/detailsProductDescription" />-->
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingEditButton"

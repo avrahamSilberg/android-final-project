@@ -9,7 +9,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_my_products">My Recipes</string>
     <string name="menu_liked_items">Recipes You Like</string>
-    <string name="menu_map_view">Map View</string>
     <string name="menu_sign_out">Sign Out</string>
     <string name="gender">Gender</string>
     <string name="category">Category</string>

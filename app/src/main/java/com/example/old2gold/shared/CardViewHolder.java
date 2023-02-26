@@ -21,7 +21,6 @@ public class CardViewHolder extends RecyclerView.ViewHolder{
     public ImageView itemImage, contactImage;
     public TextView title;
     public TextView date;
-    public TextView price;
     public TextView isSold;
     private  Context context;
 
@@ -43,7 +42,6 @@ public class CardViewHolder extends RecyclerView.ViewHolder{
         itemImage = itemView.findViewById(R.id.image_item);
         contactImage = itemView.findViewById(R.id.contact_image);
         title = itemView.findViewById(R.id.item_title_tv);
-        price = itemView.findViewById(R.id.contact_location_tv);
         date = itemView.findViewById(R.id.upload_product_date_tv);
         isSold = itemView.findViewById(R.id.item_sold);
         contactImage.setImageResource(R.drawable.no_person_image);
@@ -52,7 +50,6 @@ public class CardViewHolder extends RecyclerView.ViewHolder{
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void bind(Product product) {
         title.setText(product.getTitle());
-        price.setText(product.getPrice() != null && product.getPrice() != "" ? product.getPrice() + " Min" : "time not found");
         itemImage.setImageResource(R.drawable.no_product_image);
         isSold.setVisibility(product.isSold() ? View.VISIBLE :  View.INVISIBLE);
         date.setText(UtilFunctions.getDate(product.getUpdateDate()));
