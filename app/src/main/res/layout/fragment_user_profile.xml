@@ -78,7 +78,7 @@
             android:id="@+id/products_title"
             android:layout_width="40dp"
             android:layout_height="11dp"
-            android:text="products"
+            android:text="recipes"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="10sp"

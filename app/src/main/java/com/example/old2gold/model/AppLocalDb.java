@@ -6,10 +6,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import com.example.old2gold.MyApplication;
 
-@Database(entities = {Product.class, User.class}, version = 13)
+@Database(entities = {Recipe.class, User.class}, version = 13)
 @TypeConverters({Convertors.class})
 abstract class AppLocalDbRepository extends RoomDatabase {
-    public abstract ProductDao productDao();
+    public abstract RecipeDao productDao();
     public abstract UserDao userDao();
 }
 

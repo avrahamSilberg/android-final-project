@@ -12,9 +12,9 @@ import java.util.Set;
 import java.util.logging.Filter;
 
 public class ProductListRvViewModel extends ViewModel {
-    LiveData<List<Product>> filteredProducts;
-    LiveData<List<Product>> originalProducts;
-    LiveData<List<Product>> categoriesFilterList;
+    LiveData<List<Recipe>> filteredProducts;
+    LiveData<List<Recipe>> originalProducts;
+    LiveData<List<Recipe>> categoriesFilterList;
 
     private final MutableLiveData<Set<Filter>> filters = new MutableLiveData<>();
 
@@ -24,7 +24,7 @@ public class ProductListRvViewModel extends ViewModel {
     }
 
     public ProductListRvViewModel() {
-        LiveData<List<Product>> all = Model.instance.getAll();
+        LiveData<List<Recipe>> all = Model.instance.getAll();
         filteredProducts = all;
         originalProducts = all;
     }
@@ -33,7 +33,7 @@ public class ProductListRvViewModel extends ViewModel {
         Model.instance.refreshProductsList();
     }
 
-    public LiveData<List<Product>> getData() {
+    public LiveData<List<Recipe>> getData() {
         return filteredProducts;
     }
 }

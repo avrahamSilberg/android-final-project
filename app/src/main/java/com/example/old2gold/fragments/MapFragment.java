@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,7 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.old2gold.R;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.example.old2gold.model.ProductListRvViewModel;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -73,25 +72,24 @@ public class MapFragment extends Fragment{
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(@NonNull Marker marker) {
-                        String stId = ((Product) marker.getTag()).getId();
+                        String stId = ((Recipe) marker.getTag()).getId();
                         Navigation.findNavController(view).navigate(MapFragmentDirections.navMapViewToNavProductDetails(stId));
                     }
                 });
 
-                for (Product product : viewModel.getData().getValue())  {
-                    if (product.getLatitude() != null) {
-                        LatLng currCoords = new LatLng(product.getLatitude(), product.getLongitude());
+                for (Recipe recipe : viewModel.getData().getValue())  {
+                    if (recipe.getLatitude() != null) {
+                        LatLng currCoords = new LatLng(recipe.getLatitude(), recipe.getLongitude());
                         // Initialize marker options
                         MarkerOptions markerOptions=new MarkerOptions();
                         // Set position of marker
                         markerOptions.position(currCoords);
                         // Set title of marker
-                        markerOptions.title(product.getTitle());
-                        markerOptions.snippet(product.getPrice() != null ? "price: " + product.getPrice() : "price unknown");
+                        markerOptions.title(recipe.getTitle());
 
                         // Add marker on map
                         Marker currentMarker = googleMap.addMarker(markerOptions);
-                        currentMarker.setTag(product);
+                        currentMarker.setTag(recipe);
                     }
                 };
 

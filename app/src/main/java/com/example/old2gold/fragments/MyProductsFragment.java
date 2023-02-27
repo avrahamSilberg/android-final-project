@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -19,18 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.old2gold.R;
 import com.example.old2gold.model.FavoriteProductListRvViewModel;
 import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.example.old2gold.shared.CardViewHolder;
 import com.example.old2gold.shared.OnItemClickListener;
-import com.example.old2gold.shared.UtilFunctions;
-import com.squareup.picasso.Picasso;
-
-import java.util.Optional;
 
 public class MyProductsFragment extends Fragment {
     FavoriteProductListRvViewModel viewModel;
@@ -111,8 +104,8 @@ public class MyProductsFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void onBindViewHolder(CardViewHolder holder, int position) {
-            Product product = viewModel.getData().getValue().get(position);
-            holder.bind(product);
+            Recipe recipe = viewModel.getData().getValue().get(position);
+            holder.bind(recipe);
         }
 
         @Override

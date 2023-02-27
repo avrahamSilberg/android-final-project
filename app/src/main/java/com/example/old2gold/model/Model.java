@@ -15,9 +15,7 @@ import com.example.old2gold.MyApplication;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -26,9 +24,9 @@ public class Model {
     public final static Model instance = new Model();
     Executor executor = Executors.newFixedThreadPool(1);
     ModelFirebase modelFirebase = new ModelFirebase();
-    MutableLiveData<List<Product>> productsList = new MutableLiveData<List<Product>>();
-    MutableLiveData<List<Product>> favoriteProductsByUserList = new MutableLiveData<List<Product>>();
-    MutableLiveData<List<Product>> productsByUserList = new MutableLiveData<List<Product>>();
+    MutableLiveData<List<Recipe>> productsList = new MutableLiveData<List<Recipe>>();
+    MutableLiveData<List<Recipe>> favoriteProductsByUserList = new MutableLiveData<List<Recipe>>();
+    MutableLiveData<List<Recipe>> productsByUserList = new MutableLiveData<List<Recipe>>();
     MutableLiveData<ProductsListLoadingState> productListLoadingState = new MutableLiveData<ProductsListLoadingState>();
     MutableLiveData<ProductsListLoadingState> userProductsLoadingState = new MutableLiveData<ProductsListLoadingState>();
     MutableLiveData<ProductsListLoadingState> favoriteProductsLoadingState = new MutableLiveData<ProductsListLoadingState>();
@@ -78,7 +76,7 @@ public class Model {
     }
 
 
-    public LiveData<List<Product>> getAll() {
+    public LiveData<List<Recipe>> getAll() {
         if (productsList.getValue() == null) {
             categoriesFilterList.postValue(new ArrayList<>());
             refreshProductsList();
@@ -97,7 +95,7 @@ public class Model {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public LiveData<List<Product>> getAllFavoriteProductsByUser() {
+    public LiveData<List<Recipe>> getAllFavoriteProductsByUser() {
         if (favoriteProductsByUserList.getValue() == null) {
             refreshProductsILikedByUserList();
         }
@@ -105,7 +103,7 @@ public class Model {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public LiveData<List<Product>> getProductOfUser() {
+    public LiveData<List<Recipe>> getProductOfUser() {
         if (productsByUserList.getValue() == null) {
             refreshProductsByMyUser();
         }
@@ -119,14 +117,14 @@ public class Model {
         refreshProductsList();
     }
 
-    public boolean isLoggedUser(Product product) {
+    public boolean isLoggedUser(Recipe recipe) {
         String loggedUserId = this.mAuth != null ? this.mAuth.getUid() : null;
-        return product.contactId != null && product.contactId.equals(loggedUserId);
+        return recipe.contactId != null && recipe.contactId.equals(loggedUserId);
     }
 
-    public boolean isInFilters(Product product) {
+    public boolean isInFilters(Recipe recipe) {
         List<String> categories = categoriesFilterList.getValue() != null ? categoriesFilterList.getValue() : new ArrayList<>();
-        return categories.contains(product.productCategory) || categories.isEmpty();
+        return categories.contains(recipe.productCategory) || categories.isEmpty();
     }
 
     public void refreshProductsList() {
@@ -141,21 +139,21 @@ public class Model {
                     Log.d("TAG", "fb returned " + allProducts.size());
                     lud = getProductsLastUpdateDate(lud, allProducts);
                     updateLastLocalUpdateDate(lud);
-                    List<Product> productList = AppLocalDb.db.productDao().getAll()
+                    List<Recipe> recipeList = AppLocalDb.db.productDao().getAll()
                             .stream().filter(product -> !isLoggedUser(product) && isInFilters(product))
                             .collect(Collectors.toList());
-                    productsList.postValue(productList);
+                    productsList.postValue(recipeList);
                     productListLoadingState.postValue(ProductsListLoadingState.loaded);
                 }
             });
         });
     }
 
-    private Long getProductsLastUpdateDate(Long lud, List<Product> allProducts) {
-        for (Product product : allProducts) {
-            AppLocalDb.db.productDao().insertAll(product);
-            if (lud < product.getUpdateDate()) {
-                lud = product.getUpdateDate();
+    private Long getProductsLastUpdateDate(Long lud, List<Recipe> allRecipes) {
+        for (Recipe recipe : allRecipes) {
+            AppLocalDb.db.productDao().insertAll(recipe);
+            if (lud < recipe.getUpdateDate()) {
+                lud = recipe.getUpdateDate();
             }
         }
         return lud;
@@ -166,14 +164,14 @@ public class Model {
         favoriteProductsLoadingState.setValue(ProductsListLoadingState.loading);
         modelFirebase.getAllLikedProductsByUser(this.mAuth.getUid(), new ModelFirebase.GetLikedProductsListener() {
             @Override
-            public void onComplete(List<Product> products) {
+            public void onComplete(List<Recipe> recipes) {
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
                         Long lud = new Long(0);
-                        Log.d("TAG", "fb returned " + products.size());
+                        Log.d("TAG", "fb returned " + recipes.size());
                         updateLastLocalUpdateDate(lud);
-                        favoriteProductsByUserList.postValue(products);
+                        favoriteProductsByUserList.postValue(recipes);
                         favoriteProductsLoadingState.postValue(ProductsListLoadingState.loaded);
                     }
                 });
@@ -192,8 +190,8 @@ public class Model {
                     Long lastUpdateDate = new Long(0);
                     Log.d("TAG", "fb returned " + products.size());
                     updateLastLocalUpdateDate(getProductsLastUpdateDate(lastUpdateDate, products));
-                    List<Product> productList = AppLocalDb.db.productDao().getProductsByContactId(id);
-                    productsByUserList.postValue(productList);
+                    List<Recipe> recipeList = AppLocalDb.db.productDao().getProductsByContactId(id);
+                    productsByUserList.postValue(recipeList);
                     userProductsLoadingState.postValue(ProductsListLoadingState.loaded);
                 }
             });
@@ -209,8 +207,8 @@ public class Model {
     }
 
 
-    public void saveProduct(Product product, AddProductListener listener) {
-        modelFirebase.saveProduct(product, () -> {
+    public void saveProduct(Recipe recipe, AddProductListener listener) {
+        modelFirebase.saveProduct(recipe, () -> {
             listener.onComplete();
             refreshProductsList();
         });
@@ -253,10 +251,10 @@ public class Model {
     }
 
     public interface GetProductById {
-        void onComplete(Product product);
+        void onComplete(Recipe recipe);
     }
 
-    public Product getProductById(String productId, GetProductById listener) {
+    public Recipe getProductById(String productId, GetProductById listener) {
         modelFirebase.getProductById(productId, listener);
         return null;
     }

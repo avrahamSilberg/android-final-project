@@ -1,6 +1,6 @@
 package com.example.old2gold.model;
 
-import static com.example.old2gold.model.Product.PRODUCTS_COLLECTION_NAME;
+import static com.example.old2gold.model.Recipe.PRODUCTS_COLLECTION_NAME;
 
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 public class ModelFirebase {
 
@@ -37,15 +36,15 @@ public class ModelFirebase {
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public interface GetAllProductsListener {
-        void onComplete(List<Product> list);
+        void onComplete(List<Recipe> list);
     }
 
     public interface GetLikedProductsListener {
-        void onComplete(List<Product> list);
+        void onComplete(List<Recipe> list);
     }
 
     public interface GetMyProductsListener {
-        void onComplete(List<Product> list);
+        void onComplete(List<Recipe> list);
     }
 
 
@@ -57,10 +56,10 @@ public class ModelFirebase {
         void onComplete();
     }
 
-    public void saveProduct(Product product, Model.AddProductListener listener) {
-        Map<String, Object> json = product.toJson();
-        db.collection(Product.PRODUCTS_COLLECTION_NAME)
-                .document(product.getId())
+    public void saveProduct(Recipe recipe, Model.AddProductListener listener) {
+        Map<String, Object> json = recipe.toJson();
+        db.collection(Recipe.PRODUCTS_COLLECTION_NAME)
+                .document(recipe.getId())
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
@@ -198,50 +197,50 @@ public class ModelFirebase {
     }
 
 
-    public List<Product> getAllProducts(Long lastUpdateDate, GetAllProductsListener listener) {
-        List<Product> products = new ArrayList<>();
+    public List<Recipe> getAllProducts(Long lastUpdateDate, GetAllProductsListener listener) {
+        List<Recipe> recipes = new ArrayList<>();
         db.collection(PRODUCTS_COLLECTION_NAME)
                 .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .orderBy("updateDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        createProductList(products, task);
+                        createProductList(recipes, task);
                     }
 
-                    listener.onComplete(products);
+                    listener.onComplete(recipes);
                 });
 
-        return products;
+        return recipes;
     }
 
-    private void createProductList(List<Product> products, Task<QuerySnapshot> task) {
+    private void createProductList(List<Recipe> recipes, Task<QuerySnapshot> task) {
         for (DocumentSnapshot product : task.getResult()) {
-            Product productToAdd = Product.create(Objects.requireNonNull(product.getData()));
-            productToAdd.setId(product.getId());
-            products.add(productToAdd);
+            Recipe recipeToAdd = Recipe.create(Objects.requireNonNull(product.getData()));
+            recipeToAdd.setId(product.getId());
+            recipes.add(recipeToAdd);
         }
     }
 
     public void getProductById(String productId, Model.GetProductById listener) {
-        db.collection(Product.PRODUCTS_COLLECTION_NAME)
+        db.collection(Recipe.PRODUCTS_COLLECTION_NAME)
                 .document(productId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        Product product = null;
+                        Recipe recipe = null;
                         if (task.isSuccessful() & task.getResult() != null) {
-                            product = Product.create(task.getResult().getData());
-                            product.setId(task.getResult().getId());
+                            recipe = Recipe.create(task.getResult().getData());
+                            recipe.setId(task.getResult().getId());
                         }
-                        listener.onComplete(product);
+                        listener.onComplete(recipe);
                     }
                 });
     }
 
-    public List<Product> getProductsByUser(String id, GetMyProductsListener myProductsListener) {
-        List<Product> products = new ArrayList<>();
+    public List<Recipe> getProductsByUser(String id, GetMyProductsListener myProductsListener) {
+        List<Recipe> recipes = new ArrayList<>();
         FirebaseFirestore.getInstance().collection(PRODUCTS_COLLECTION_NAME)
                 .whereEqualTo("contactId", id)
                 .whereEqualTo("isDeleted", false)
@@ -249,19 +248,19 @@ public class ModelFirebase {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        createProductList(products, task);
+                        createProductList(recipes, task);
                     }
-                    myProductsListener.onComplete(products);
+                    myProductsListener.onComplete(recipes);
                 });
 
-        return products;
+        return recipes;
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public List<Product> getAllLikedProductsByUser(String id, GetLikedProductsListener myProductsListener) {
+    public List<Recipe> getAllLikedProductsByUser(String id, GetLikedProductsListener myProductsListener) {
         final User[] user = new User[1];
-        List<Product> products = new ArrayList<>();
+        List<Recipe> recipes = new ArrayList<>();
 
         db.collection(User.COLLECTION_NAME)
                 .document(id)
@@ -286,18 +285,18 @@ public class ModelFirebase {
                                                             if (productsTask.isSuccessful()) {
                                                                 DocumentSnapshot result = productsTask.getResult();
 
-                                                                Product productToAdd = Product.create(Objects.requireNonNull(result.getData()));
-                                                                productToAdd.setId(result.getId());
+                                                                Recipe recipeToAdd = Recipe.create(Objects.requireNonNull(result.getData()));
+                                                                recipeToAdd.setId(result.getId());
 
-                                                                if (!productToAdd.isDeleted()) {
-                                                                    products.add(productToAdd);
-                                                                    myProductsListener.onComplete(products);
+                                                                if (!recipeToAdd.isDeleted()) {
+                                                                    recipes.add(recipeToAdd);
+                                                                    myProductsListener.onComplete(recipes);
                                                                 }
                                                             }
                                                         });
                                             }
                                         } else {
-                                            myProductsListener.onComplete(products);
+                                            myProductsListener.onComplete(recipes);
                                         }
                                     }
                                 } else {
@@ -308,7 +307,7 @@ public class ModelFirebase {
                             }
 
                         });
-        return products;
+        return recipes;
     }
 
     public void addToLikedProducts(String productId, AddLikedProductListener addLikedProductListener) {

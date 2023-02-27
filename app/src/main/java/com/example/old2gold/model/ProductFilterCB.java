@@ -1,6 +1,6 @@
 package com.example.old2gold.model;
 
-import com.example.old2gold.enums.ProductCategory;
+import com.example.old2gold.enums.RecipeCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class ProductFilterCB {
 
     public static List<ProductFilterCB> getAllCheckboxTypes() {
         List<ProductFilterCB> productSizeFilterCBList = new ArrayList<>();
-        ProductCategory[] productTypes = ProductCategory.values();
+        RecipeCategory[] productTypes = RecipeCategory.values();
         for (int i = 0; i < productTypes.length; i++) {
             productSizeFilterCBList.add(i, new ProductFilterCB(productTypes[i].toString()));
         }

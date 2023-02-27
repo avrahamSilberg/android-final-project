@@ -3,11 +3,9 @@ package com.example.old2gold.fragments;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -20,21 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.old2gold.R;
 import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.example.old2gold.model.UserProductsListRvViewModel;
 import com.example.old2gold.shared.CardViewHolder;
 import com.example.old2gold.shared.OnItemClickListener;
-import com.example.old2gold.shared.UtilFunctions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
-
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.Optional;
 
 public class UserProductsFragment extends Fragment {
     private UserProductsListRvViewModel viewModel;
@@ -132,8 +122,8 @@ public class UserProductsFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void onBindViewHolder(CardViewHolder holder, int position) {
-            Product product = viewModel.getData().getValue().get(position);
-            holder.bind(product);
+            Recipe recipe = viewModel.getData().getValue().get(position);
+            holder.bind(recipe);
         }
 
         @Override

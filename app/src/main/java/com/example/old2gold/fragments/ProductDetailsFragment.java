@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,14 +21,12 @@ import androidx.navigation.Navigation;
 import com.example.old2gold.R;
 import com.example.old2gold.model.FavoriteProductListRvViewModel;
 import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.example.old2gold.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
-import java.text.MessageFormat;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ProductDetailsFragment extends Fragment {
@@ -66,11 +61,11 @@ public class ProductDetailsFragment extends Fragment {
         Model.instance.getProductById(productId, new Model.GetProductById() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onComplete(Product product) {
-                setFragmentElements(product);
-                displayOwnerButtons(product, productId);
-                getProductSeller(product);
-                FavoritesHandler(product, productId);
+            public void onComplete(Recipe recipe) {
+                setFragmentElements(recipe);
+                displayOwnerButtons(recipe, productId);
+                getProductSeller(recipe);
+                FavoritesHandler(recipe, productId);
             }
         });
 
@@ -79,9 +74,9 @@ public class ProductDetailsFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void FavoritesHandler(Product product, String productId) {
-        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> showFavoritesIcon(product));
-        if (!isCurrentUserProduct(product.getContactId())) {
+    private void FavoritesHandler(Recipe recipe, String productId) {
+        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> showFavoritesIcon(recipe));
+        if (!isCurrentUserProduct(recipe.getContactId())) {
             addToFavorite = view.findViewById(R.id.add_to_favorite);
             removeFromFavorites = view.findViewById(R.id.in_favorite_icon);
             HandleRemoveFromFavorites(productId);
@@ -125,8 +120,8 @@ public class ProductDetailsFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void getProductSeller(Product product) {
-        Model.instance.getProductSellerUser(product.getContactId(), user -> {
+    private void getProductSeller(Recipe recipe) {
+        Model.instance.getProductSellerUser(recipe.getContactId(), user -> {
             progressBar.setVisibility(View.GONE);
 
             if (user != null) {
@@ -142,13 +137,13 @@ public class ProductDetailsFragment extends Fragment {
                 sellerName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        navigateToUserProfile(user, product.getContactId());
+                        navigateToUserProfile(user, recipe.getContactId());
                     }
                 });
                 sellerImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        navigateToUserProfile(user, product.getContactId());
+                        navigateToUserProfile(user, recipe.getContactId());
                     }
                 });
             } else {
@@ -158,21 +153,21 @@ public class ProductDetailsFragment extends Fragment {
         });
     }
 
-    private void displayOwnerButtons(Product product, String productId) {
-        if (isCurrentUserProduct(product.getContactId())) {
+    private void displayOwnerButtons(Recipe recipe, String productId) {
+        if (isCurrentUserProduct(recipe.getContactId())) {
             displayEditButton(productId);
-            displayDeleteButton(product);
+            displayDeleteButton(recipe);
             removeFromFavorites.setVisibility(View.GONE);
             addToFavorite.setVisibility(View.GONE);
         }
     }
 
-    private void displayDeleteButton(Product product) {
+    private void displayDeleteButton(Recipe recipe) {
         deleteButton.setVisibility(View.VISIBLE);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDeleteDialog(product);
+                openDeleteDialog(recipe);
             }
         });
     }
@@ -188,12 +183,12 @@ public class ProductDetailsFragment extends Fragment {
         });
     }
 
-    private void setFragmentElements(Product product) {
-        title.setText(product.getTitle());
-        category.setText(product.getProductCategory());
-        description.setText(product.getDescription());
-        if (product.getImageUrl() != null) {
-            Picasso.get().load(product.getImageUrl()).into(imageUrl);
+    private void setFragmentElements(Recipe recipe) {
+        title.setText(recipe.getTitle());
+        category.setText(recipe.getProductCategory());
+        description.setText(recipe.getDescription());
+        if (recipe.getImageUrl() != null) {
+            Picasso.get().load(recipe.getImageUrl()).into(imageUrl);
         }
     }
 
@@ -214,14 +209,14 @@ public class ProductDetailsFragment extends Fragment {
 
     }
 
-    private void openDeleteDialog(Product product) {
+    private void openDeleteDialog(Recipe recipe) {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("Do you want to delete this product?");
 
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                product.setDeleted(true);
-                Model.instance.saveProduct(product, () -> {
+                recipe.setDeleted(true);
+                Model.instance.saveProduct(recipe, () -> {
                     Navigation.findNavController(title).navigateUp();
                 });
             }
@@ -252,13 +247,13 @@ public class ProductDetailsFragment extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void showFavoritesIcon(Product product) {
-        if (!isCurrentUserProduct(product.getContactId())) {
+    private void showFavoritesIcon(Recipe recipe) {
+        if (!isCurrentUserProduct(recipe.getContactId())) {
             List<String> favoritesProducts = viewModel.getData().getValue()
                     .stream()
-                    .map(Product::getId).collect(Collectors.toList());
+                    .map(Recipe::getId).collect(Collectors.toList());
 
-            if (favoritesProducts.contains(product.getId())) {
+            if (favoritesProducts.contains(recipe.getId())) {
                 removeFromFavorites.setVisibility(View.VISIBLE);
                 addToFavorite.setVisibility(View.GONE);
             } else {

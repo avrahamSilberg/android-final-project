@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.old2gold.R;
 import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.squareup.picasso.Picasso;
 
 public class CardViewHolder extends RecyclerView.ViewHolder{
@@ -48,22 +48,22 @@ public class CardViewHolder extends RecyclerView.ViewHolder{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void bind(Product product) {
-        title.setText(product.getTitle());
+    public void bind(Recipe recipe) {
+        title.setText(recipe.getTitle());
         itemImage.setImageResource(R.drawable.no_product_image);
-        isSold.setVisibility(product.isSold() ? View.VISIBLE :  View.INVISIBLE);
-        date.setText(UtilFunctions.getDate(product.getUpdateDate()));
+        isSold.setVisibility(View.INVISIBLE);
+        date.setText(UtilFunctions.getDate(recipe.getUpdateDate()));
 
-        if (product.getImageUrl() != null) {
+        if (recipe.getImageUrl() != null) {
             Picasso.get()
-                    .load(product.getImageUrl())
+                    .load(recipe.getImageUrl())
                     .into(itemImage);
         } else {
             itemImage.setImageResource(R.drawable.no_product_image);
         }
 
 
-        Model.instance.getUser(product.getContactId(), user -> {
+        Model.instance.getUser(recipe.getContactId(), user -> {
             if (user.getUserImageUrl() != null) {
 
                 Glide.with(this.context)

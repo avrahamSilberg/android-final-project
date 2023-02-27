@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 public class UserProductsListRvViewModel extends ViewModel {
-    LiveData<List<Product>> data;
+    LiveData<List<Recipe>> data;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UserProductsListRvViewModel() {
         data = Model.instance.getProductOfUser();
     }
 
-    public LiveData<List<Product>> getData() {
+    public LiveData<List<Recipe>> getData() {
         return data;
     }
 

@@ -33,11 +33,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.old2gold.R;
-import com.example.old2gold.enums.Gender;
-import com.example.old2gold.enums.ProductCategory;
-import com.example.old2gold.enums.ProductCondition;
+import com.example.old2gold.enums.RecipeCategory;
 import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -46,7 +44,6 @@ import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -76,7 +73,6 @@ public class AddOrEditProductFragment extends Fragment {
     String[] genders;
     String[] states;
     String productId;
-    Boolean isSold = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -124,14 +120,13 @@ public class AddOrEditProductFragment extends Fragment {
         Model.instance.getProductById(productId, new Model.GetProductById() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onComplete(Product product) {
-                title.setText(product.getTitle());
-                category.setText(category.getAdapter().getItem(Arrays.stream(categories).collect(Collectors.toList()).indexOf(product.getProductCategory())).toString(),false);
-                description.setText(product.getDescription());
-                if (product.getImageUrl() != null) {
-                    Picasso.get().load(product.getImageUrl()).into(productImage);
+            public void onComplete(Recipe recipe) {
+                title.setText(recipe.getTitle());
+                category.setText(category.getAdapter().getItem(Arrays.stream(categories).collect(Collectors.toList()).indexOf(recipe.getProductCategory())).toString(),false);
+                description.setText(recipe.getDescription());
+                if (recipe.getImageUrl() != null) {
+                    Picasso.get().load(recipe.getImageUrl()).into(productImage);
                 }
-                isSold = product.isSold();
             }
         });
     }
@@ -162,8 +157,8 @@ public class AddOrEditProductFragment extends Fragment {
 
     private void getProductCategory(View view) {
         AutoCompleteTextView dropdown = view.findViewById(R.id.category);
-        this.categories = new String[]{ProductCategory.BAKING.toString(), ProductCategory.COOKING.toString(), ProductCategory.DESERT.toString(),
-        ProductCategory.OTHER.toString()};
+        this.categories = new String[]{RecipeCategory.BAKING.toString(), RecipeCategory.COOKING.toString(), RecipeCategory.DESERT.toString(),
+        RecipeCategory.OTHER.toString()};
         setDropdownAdapter(dropdown, categories);
     }
 
@@ -176,23 +171,23 @@ public class AddOrEditProductFragment extends Fragment {
         camBtn.setEnabled(false);
         galleryBtn.setEnabled(false);
 
-        Product product = getProduct(productId);
-        saveProduct(product);
+        Recipe recipe = getProduct(productId);
+        saveProduct(recipe);
     }
 
-    private void saveProduct(Product product) {
+    private void saveProduct(Recipe recipe) {
         progressBar.setVisibility(View.VISIBLE);
 
         if (imageBitmap == null) {
-            Model.instance.saveProduct(product, () -> {
+            Model.instance.saveProduct(recipe, () -> {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "saved product successfully!", Toast.LENGTH_LONG).show();
                 Navigation.findNavController(this.title).navigateUp();
             });
         } else {
             Model.instance.saveProductImage(imageBitmap, UUID.randomUUID() + ".jpg", url -> {
-                product.setImageUrl(url);
-                Model.instance.saveProduct(product, () -> {
+                recipe.setImageUrl(url);
+                Model.instance.saveProduct(recipe, () -> {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "saved product successfully!", Toast.LENGTH_LONG).show();
                     Navigation.findNavController(this.title).navigateUp();
@@ -202,15 +197,13 @@ public class AddOrEditProductFragment extends Fragment {
     }
 
     @NonNull
-    private Product getProduct(String id) {
+    private Recipe getProduct(String id) {
         final String key = id != null ? id : FirebaseDatabase.getInstance().getReference().push().getKey();
-        return new Product(key,Objects.requireNonNull(this.title.getText()).toString(),
+        return new Recipe(key,Objects.requireNonNull(this.title.getText()).toString(),
                 this.description.getText() != null ? this.description.getText().toString() : "",
-                Gender.OTHER.toString(),
-                ProductCondition.OK.toString(),
-                this.isInArray(this.categories, this.category.getText().toString()) ? this.category.getText().toString() : ProductCategory.OTHER.toString(),
-                "",
-                Model.instance.mAuth.getUid(), currLocation != null ? currLocation.latitude : null, currLocation != null ? currLocation.longitude : null, false, this.isEditMode ? isSold : false);
+                "OK",
+                this.isInArray(this.categories, this.category.getText().toString()) ? this.category.getText().toString() : RecipeCategory.OTHER.toString(),
+                Model.instance.mAuth.getUid(),  false);
     }
 
     private boolean isInArray(String[] array, String string) {

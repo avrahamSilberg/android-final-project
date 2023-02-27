@@ -22,11 +22,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.old2gold.R;
 import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Product;
+import com.example.old2gold.model.Recipe;
 import com.example.old2gold.model.ProductListRvViewModel;
 import com.example.old2gold.shared.CardViewHolder;
 import com.example.old2gold.shared.OnItemClickListener;
-import com.example.old2gold.shared.UtilFunctions;
 
 public class HomeFragment extends Fragment {
     ProductListRvViewModel viewModel;
@@ -122,8 +121,8 @@ public class HomeFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-            Product product = viewModel.getData().getValue().get(position);
-            holder.bind(product);
+            Recipe recipe = viewModel.getData().getValue().get(position);
+            holder.bind(recipe);
         }
 
         @Override
