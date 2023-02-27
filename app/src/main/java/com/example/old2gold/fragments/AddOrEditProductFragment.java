@@ -1,19 +1,14 @@
 package com.example.old2gold.fragments;
 
-import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,19 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import com.example.old2gold.R;
 import com.example.old2gold.enums.RecipeCategory;
 import com.example.old2gold.model.Model;
 import com.example.old2gold.model.Recipe;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.CancellationToken;
-import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -57,9 +45,7 @@ import lombok.SneakyThrows;
 public class AddOrEditProductFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 2;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean isEditMode = false;
-    private LatLng currLocation;
     private ProgressBar progressBar;
     TextInputEditText title;
     MaterialAutoCompleteTextView category;
@@ -70,8 +56,6 @@ public class AddOrEditProductFragment extends Fragment {
     FloatingActionButton galleryBtn;
     Bitmap imageBitmap;
     String[] categories;
-    String[] genders;
-    String[] states;
     String productId;
 
     @Override
@@ -106,12 +90,7 @@ public class AddOrEditProductFragment extends Fragment {
         camBtn.setOnClickListener(v -> openCam());
 
         galleryBtn.setOnClickListener(v -> openGallery());
-
-        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1337);
-        this.getStateDropdown(view);
-        this.getGenderDropdown(view);
         this.getProductCategory(view);
-        this.getCurrentLocation();
 
         return view;
     }
@@ -141,18 +120,6 @@ public class AddOrEditProductFragment extends Fragment {
         galleryBtn = view.findViewById(R.id.galleryBtn);
         progressBar = view.findViewById(R.id.add_product_progressbar);
         progressBar.setVisibility(View.GONE);
-    }
-
-    private void getStateDropdown(View view) {
-//        AutoCompleteTextView dropdown = view.findViewById(R.id.condition);
-//        this.states = new String[]{ProductCondition.GOOD_AS_NEW.toString(), ProductCondition.GOOD.toString(), ProductCondition.OK.toString()};
-//        setDropdownAdapter(dropdown, states);
-    }
-
-    private void getGenderDropdown(View view) {
-//        AutoCompleteTextView dropdown = view.findViewById(R.id.gender);
-//        this.genders = new String[]{Gender.FEMALE.toString(), Gender.MALE.toString(), Gender.OTHER.toString()};
-//        setDropdownAdapter(dropdown, genders);
     }
 
     private void getProductCategory(View view) {
@@ -241,45 +208,5 @@ public class AddOrEditProductFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY);
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED) {
-            try {
-                this.mFusedLocationProviderClient = LocationServices
-                        .getFusedLocationProviderClient(getActivity());
-
-                this.mFusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, new CancellationToken() {
-                    @NonNull
-                    @Override
-                    public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean isCancellationRequested() {
-                        return false;
-                    }
-                }).addOnSuccessListener(location -> {
-                    currLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                });
-            } catch (Error error) {
-                Log.e("LocationError", error.getMessage());
-            }
-
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (requestCode == 1337) {
-            if (grantResults.length > 0) {
-                getCurrentLocation();
-            }
-        }
     }
 }
