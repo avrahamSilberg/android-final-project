@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY = 2;
 
     private TextInputEditText firstNameEdt, lastNameEdt, passwordEdt, confirmPwdEdt,
-            emailEdt, phoneNumberEdt, addressEdt;
+            emailEdt, phoneNumberEdt;
     private ImageView productImage;
     private FloatingActionButton camBtn, galleryBtn;
     private TextView loginTV;
@@ -57,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPwdEdt = findViewById(R.id.idEdtConfirmPassword);
         emailEdt = findViewById(R.id.idEdtEmail);
         phoneNumberEdt = findViewById(R.id.idEdtPhoneNumber);
-        addressEdt = findViewById(R.id.idEdtAddress);
 
         loginTV = findViewById(R.id.idTVLoginUser);
         registerBtn = findViewById(R.id.idBtnRegister);
@@ -92,14 +91,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String lastName = lastNameEdt.getText().toString();
                 String email = emailEdt.getText().toString();
                 String phoneNumber = phoneNumberEdt.getText().toString();
-                String address = addressEdt.getText().toString();
 
                 String pwd = passwordEdt.getText().toString();
                 String cnfPwd = confirmPwdEdt.getText().toString();
 
                 if (!pwd.equals(cnfPwd) && !TextUtils.isEmpty(pwd)) {
                     Toast.makeText(RegisterActivity.this, "Please check both having same password..", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd) || TextUtils.isEmpty(cnfPwd) || TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(address)) {
+                } else if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd) || TextUtils.isEmpty(cnfPwd) || TextUtils.isEmpty(phoneNumber)) {
                     Toast.makeText(RegisterActivity.this, "Please make sure all fields are filled", Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
@@ -111,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     // on below line we are checking if the task is success or not.
                                     if (task.isSuccessful()) {
-                                        User user = new User(firstName, lastName, email, phoneNumber, address, new ArrayList<>());
+                                        User user = new User(firstName, lastName, email, phoneNumber,"", new ArrayList<>());
                                         if (imageBitmap != null) {
                                             Model.instance.saveUserImage(imageBitmap, UUID.randomUUID() + ".jpg", url -> {
                                                 user.setUserImageUrl(url);

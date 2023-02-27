@@ -42,9 +42,8 @@ public class EditUserDetailsFragment extends Fragment {
     String imageUrl, address, phoneNumber, firstName, lastName;
     private FloatingActionButton camBtn, galleryBtn;
     ImageView userImage;
-    TextInputEditText editAddress, editPhone, editFirstName, editLastName;
+    TextInputEditText editPhone, editFirstName, editLastName;
     Button saveUpdates;
-    TextInputLayout editAddressLayout;
     private ProgressBar progressBar;
     User currentUser;
 
@@ -60,7 +59,6 @@ public class EditUserDetailsFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
 
         userImage = view.findViewById(R.id.user_edit_image);
-        editAddress = view.findViewById(R.id.user_edit_address);
         editPhone = view.findViewById(R.id.user_edit_phone);
         editFirstName = view.findViewById(R.id.user_edit_fname);
         editLastName = view.findViewById(R.id.user_edit_lname);
@@ -71,8 +69,6 @@ public class EditUserDetailsFragment extends Fragment {
         if (bundle != null) {
             currentUser = (User) bundle.getSerializable("user");
         }
-
-        editAddress.setText(currentUser.getAddress());
         editPhone.setText(currentUser.getPhoneNumber());
         editFirstName.setText(currentUser.getFirstName());
         editLastName.setText(currentUser.getLastName());
@@ -88,19 +84,16 @@ public class EditUserDetailsFragment extends Fragment {
         saveUpdates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String address = editAddress.getText().toString();
                 String firstName = editFirstName.getText().toString();
                 String lastName = editLastName.getText().toString();
                 String phoneNumber = editPhone.getText().toString();
 
                 Activity activity = getActivity();
 
-                if (TextUtils.isEmpty(address) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(phoneNumber)) {
+                if (TextUtils.isEmpty(lastName) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(phoneNumber)) {
                     Toast.makeText(activity, "Please make sure all fields are filled", Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
-                    currentUser.setAddress(address);
                     currentUser.setFirstName(firstName);
                     currentUser.setLastName(lastName);
                     currentUser.setPhoneNumber(phoneNumber);

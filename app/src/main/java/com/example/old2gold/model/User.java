@@ -80,7 +80,6 @@ public class User implements Serializable  {
         json.put("lastName", lastName);
         json.put("email", email);
         json.put("phoneNumber", phoneNumber);
-        json.put("address", address);
         json.put("userImageUrl", userImageUrl);
         json.put("favoriteProducts", Collections.emptyList());
         return json;

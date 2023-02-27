@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 public class UserProfileFragment extends Fragment {
-    TextView email, phone, address, fullUserName,productsTitle, favoritesTitle;
+    TextView email, phone, fullUserName,productsTitle, favoritesTitle;
     ImageButton userFavorites, userProducts, editDetails;
     ImageView userImage;
     User currentUser;
@@ -34,7 +34,6 @@ public class UserProfileFragment extends Fragment {
         fullUserName = view.findViewById(R.id.full_user_name);
         email = view.findViewById(R.id.email_txt);
         phone = view.findViewById(R.id.phone_txt);
-        address = view.findViewById(R.id.address_txt);
         userFavorites = view.findViewById(R.id.user_favorites);
         userProducts = view.findViewById(R.id.user_products);
         userImage = view.findViewById(R.id.user_image);
@@ -49,7 +48,6 @@ public class UserProfileFragment extends Fragment {
         }
         email.setText(currentUser.getEmail());
         phone.setText(currentUser.getPhoneNumber());
-        address.setText(currentUser.getAddress());
         fullUserName.setText(currentUser.getFirstName() + " " + currentUser.getLastName());
 
 

@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
-        android:text="Address:"
+        android:text=""
         android:textColor="@color/purple_200"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -100,18 +100,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/user_edit_image" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/user_edit_address"
-        android:layout_width="207dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/user_address"
-        app:layout_constraintTop_toBottomOf="@+id/user_edit_image" />
 
     <TextView
         android:id="@+id/user_phone"
@@ -209,17 +197,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/save_updates"
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="224dp"
+        android:layout_marginBottom="132dp"
         android:text="Save"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 </androidx.constraintlayout.widget.ConstraintLayout>
