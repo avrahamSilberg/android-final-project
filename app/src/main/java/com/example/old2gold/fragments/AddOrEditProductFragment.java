@@ -65,11 +65,8 @@ public class AddOrEditProductFragment extends Fragment {
     private LatLng currLocation;
     private ProgressBar progressBar;
     TextInputEditText title;
-    MaterialAutoCompleteTextView gender;
     MaterialAutoCompleteTextView category;
-    MaterialAutoCompleteTextView condition;
     TextInputEditText description;
-    TextInputLayout price;
     Button saveBtn;
     ImageView productImage;
     FloatingActionButton camBtn;
@@ -104,9 +101,6 @@ public class AddOrEditProductFragment extends Fragment {
                 if(TextUtils.isEmpty(title.getText())) {
                     title.setError("required field");
                 }
-                if(TextUtils.isEmpty(title.getText())) {
-                    price.setError("required field");
-                }
                 else {
                     save();
                 }
@@ -132,11 +126,7 @@ public class AddOrEditProductFragment extends Fragment {
             @Override
             public void onComplete(Product product) {
                 title.setText(product.getTitle());
-                String productPrice = product.getPrice();
-                price.getEditText().setText(productPrice != null ? product.getPrice() : "");
-                gender.setText(gender.getAdapter().getItem(Arrays.stream(genders).collect(Collectors.toList()).indexOf(product.getGender())).toString(), false);
                 category.setText(category.getAdapter().getItem(Arrays.stream(categories).collect(Collectors.toList()).indexOf(product.getProductCategory())).toString(),false);
-                condition.setText(condition.getAdapter().getItem(Arrays.stream(states).collect(Collectors.toList()).indexOf(product.getProductCondition())).toString(),false);
                 description.setText(product.getDescription());
                 if (product.getImageUrl() != null) {
                     Picasso.get().load(product.getImageUrl()).into(productImage);
@@ -148,11 +138,8 @@ public class AddOrEditProductFragment extends Fragment {
 
     private void findAllElements(View view) {
         title = view.findViewById(R.id.productTitle);
-        gender = view.findViewById(R.id.gender);
         category = view.findViewById(R.id.category);
-        condition = view.findViewById(R.id.condition);
         description = view.findViewById(R.id.description);
-        price = view.findViewById(R.id.productPrice);
         saveBtn = view.findViewById(R.id.addProductBtn);
         productImage = view.findViewById(R.id.productImage);
         camBtn = view.findViewById(R.id.cameraBtn);
@@ -162,15 +149,15 @@ public class AddOrEditProductFragment extends Fragment {
     }
 
     private void getStateDropdown(View view) {
-        AutoCompleteTextView dropdown = view.findViewById(R.id.condition);
-        this.states = new String[]{ProductCondition.GOOD_AS_NEW.toString(), ProductCondition.GOOD.toString(), ProductCondition.OK.toString()};
-        setDropdownAdapter(dropdown, states);
+//        AutoCompleteTextView dropdown = view.findViewById(R.id.condition);
+//        this.states = new String[]{ProductCondition.GOOD_AS_NEW.toString(), ProductCondition.GOOD.toString(), ProductCondition.OK.toString()};
+//        setDropdownAdapter(dropdown, states);
     }
 
     private void getGenderDropdown(View view) {
-        AutoCompleteTextView dropdown = view.findViewById(R.id.gender);
-        this.genders = new String[]{Gender.FEMALE.toString(), Gender.MALE.toString(), Gender.OTHER.toString()};
-        setDropdownAdapter(dropdown, genders);
+//        AutoCompleteTextView dropdown = view.findViewById(R.id.gender);
+//        this.genders = new String[]{Gender.FEMALE.toString(), Gender.MALE.toString(), Gender.OTHER.toString()};
+//        setDropdownAdapter(dropdown, genders);
     }
 
     private void getProductCategory(View view) {
@@ -219,10 +206,10 @@ public class AddOrEditProductFragment extends Fragment {
         final String key = id != null ? id : FirebaseDatabase.getInstance().getReference().push().getKey();
         return new Product(key,Objects.requireNonNull(this.title.getText()).toString(),
                 this.description.getText() != null ? this.description.getText().toString() : "",
-                this.isInArray(this.genders, this.gender.getText().toString()) ? this.gender.getText().toString() : Gender.OTHER.toString(),
-                this.isInArray(this.states, this.condition.getText().toString()) ? this.condition.getText().toString() : ProductCondition.OK.toString(),
+                Gender.OTHER.toString(),
+                ProductCondition.OK.toString(),
                 this.isInArray(this.categories, this.category.getText().toString()) ? this.category.getText().toString() : ProductCategory.OTHER.toString(),
-                Objects.requireNonNull(price.getEditText()).getText().toString(),
+                "",
                 Model.instance.mAuth.getUid(), currLocation != null ? currLocation.latitude : null, currLocation != null ? currLocation.longitude : null, false, this.isEditMode ? isSold : false);
     }
 
