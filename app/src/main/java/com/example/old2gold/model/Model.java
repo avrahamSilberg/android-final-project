@@ -139,7 +139,7 @@ public class Model {
                     Log.d("TAG", "fb returned " + allProducts.size());
                     lud = getProductsLastUpdateDate(lud, allProducts);
                     updateLastLocalUpdateDate(lud);
-                    List<Recipe> recipeList = AppLocalDb.db.productDao().getAll();
+                    List<Recipe> recipeList = AppLocalDb.db.productDao().getAll().stream().filter(recipe -> isInFilters(recipe)).collect(Collectors.toList());
                     productsList.postValue(recipeList);
                     productListLoadingState.postValue(ProductsListLoadingState.loaded);
                 }
