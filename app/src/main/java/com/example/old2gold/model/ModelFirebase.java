@@ -34,14 +34,14 @@ public class ModelFirebase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    public interface GetLikedProductsListener {
+        void onComplete(List<Recipe> list);
+    }
 
     public interface GetAllProductsListener {
         void onComplete(List<Recipe> list);
     }
 
-    public interface GetLikedProductsListener {
-        void onComplete(List<Recipe> list);
-    }
 
     public interface GetMyProductsListener {
         void onComplete(List<Recipe> list);

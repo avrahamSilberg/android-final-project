@@ -39,12 +39,13 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+
+        this.progressBar = findViewById(R.id.login_progress_bar);
+        progressBar.setVisibility(View.GONE);
         this.emailEdt = findViewById(R.id.idEdtEmail);
         this.passwordEdt = findViewById(R.id.idEdtPassword);
         this.loginBtn = findViewById(R.id.idBtnLogin);
         this.newUserTV = findViewById(R.id.idTVNewUser);
-        this.progressBar = findViewById(R.id.login_progress_bar);
-        progressBar.setVisibility(View.GONE);
 
         // adding click listener for our new user tv.
         newUserTV.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                String email = emailEdt.getText().toString();
                 String password = passwordEdt.getText().toString();
 
                 if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                String email = emailEdt.getText().toString();
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

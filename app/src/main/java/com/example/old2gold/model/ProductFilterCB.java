@@ -24,12 +24,12 @@ public class ProductFilterCB {
         this.flag = flag;
     }
 
-    private boolean flag;
-
     private ProductFilterCB(String productType) {
         this.productType = productType;
         this.flag = false;
     }
+
+    private boolean flag;
 
     public static List<ProductFilterCB> getAllCheckboxTypes() {
         List<ProductFilterCB> productSizeFilterCBList = new ArrayList<>();
