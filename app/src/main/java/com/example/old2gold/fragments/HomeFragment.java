@@ -29,7 +29,7 @@ import com.example.fasta.shared.OnItemClickListener;
 
 public class HomeFragment extends Fragment {
     ProductListRvViewModel viewModel;
-    MyAdapter adapter;
+    MyAdapter adapterToList;
     SwipeRefreshLayout swipeRefresh;
     private ProgressBar progressBar;
 
@@ -56,11 +56,11 @@ public class HomeFragment extends Fragment {
 
         productList.setHasFixedSize(true);
         productList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MyAdapter();
-        productList.setAdapter(adapter);
+        adapterToList = new MyAdapter();
+        productList.setAdapter(adapterToList);
         setHasOptionsMenu(true);
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        adapterToList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 String productId = viewModel.getData().getValue().get(position).getId();
@@ -68,9 +68,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ToggleCategoriesFilter(view, categoryFilterButton);
 
         viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
+        ToggleCategoriesFilter(view, categoryFilterButton);
 
         Model.instance.getProductListLoadingState().observe(getViewLifecycleOwner(), productsListLoadingState -> {
             if (productsListLoadingState == Model.ProductsListLoadingState.loading) {
@@ -82,10 +82,14 @@ public class HomeFragment extends Fragment {
             }
 
         });
-
         return view;
     }
 
+   
+    private void refresh() {
+        adapterToList.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
     private void ToggleCategoriesFilter(View view, Button categoryFilterButton) {
         categoryFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,11 +99,6 @@ public class HomeFragment extends Fragment {
                         View.VISIBLE : View.GONE);
             }
         });
-    }
-
-    private void refresh() {
-        adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 
     public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
@@ -117,6 +116,7 @@ public class HomeFragment extends Fragment {
             CardViewHolder holder = new CardViewHolder(view, listener, getContext());
             return holder;
         }
+        
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
