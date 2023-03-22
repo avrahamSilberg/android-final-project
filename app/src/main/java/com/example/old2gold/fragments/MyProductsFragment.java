@@ -79,10 +79,6 @@ public class MyProductsFragment extends Fragment {
 
         return view;
     }
-    private void refresh() {
-        adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
-    }
 
 
     public class MyAdapter extends RecyclerView.Adapter<CardViewHolder> {
@@ -116,4 +112,9 @@ public class MyProductsFragment extends Fragment {
             return viewModel.getData().getValue().size();
         }
     }
+    private void refresh() {
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
+
 }
