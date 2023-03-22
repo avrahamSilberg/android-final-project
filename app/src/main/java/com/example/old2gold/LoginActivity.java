@@ -1,4 +1,4 @@
-package com.example.old2gold;
+package com.example.fasta;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

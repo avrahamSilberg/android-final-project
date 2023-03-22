@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
 
@@ -20,9 +20,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.old2gold.R;
-import com.example.old2gold.model.Recipe;
-import com.example.old2gold.model.ProductListRvViewModel;
+import com.example.fasta.R;
+import com.example.fasta.model.Recipe;
+import com.example.fasta.model.ProductListRvViewModel;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

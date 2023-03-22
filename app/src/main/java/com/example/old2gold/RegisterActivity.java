@@ -1,4 +1,4 @@
-package com.example.old2gold;
+package com.example.fasta;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,8 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.User;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

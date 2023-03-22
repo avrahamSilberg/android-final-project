@@ -1,4 +1,4 @@
-# Old2Gold
+# fasta
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/chenzimmer2/old2gold.git
+git remote add origin https://gitlab.com/chenzimmer2/fasta.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:fc0766a01b7d6ba6d4fc2356e7e9b520?https://gitlab.com/chenzimmer2/old2gold/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:fc0766a01b7d6ba6d4fc2356e7e9b520?https://gitlab.com/chenzimmer2/fasta/-/settings/integrations)
 
 ## Collaborate with your team
 

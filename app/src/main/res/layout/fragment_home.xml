@@ -87,7 +87,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/filter_fragment"
-                    android:name="com.example.old2gold.fragments.FilterFragment"
+                    android:name="com.example.fasta.fragments.FilterFragment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:isScrollContainer="true"
@@ -106,7 +106,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/sizes_fragment"
-                    android:name="com.example.old2gold.fragments.SizeFragment"
+                    android:name="com.example.fasta.fragments.SizeFragment"
                     android:layout_width="wrap_content"
                     android:layout_height="250dp"
                     android:isScrollContainer="true"

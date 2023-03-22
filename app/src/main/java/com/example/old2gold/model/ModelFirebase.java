@@ -1,6 +1,6 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
-import static com.example.old2gold.model.Recipe.PRODUCTS_COLLECTION_NAME;
+import static com.example.fasta.model.Recipe.PRODUCTS_COLLECTION_NAME;
 
 import android.graphics.Bitmap;
 import android.os.Build;

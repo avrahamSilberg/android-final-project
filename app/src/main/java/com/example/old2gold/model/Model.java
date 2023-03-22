@@ -1,6 +1,6 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
-import static com.example.old2gold.MyApplication.getContext;
+import static com.example.fasta.MyApplication.getContext;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.old2gold.MyApplication;
+import com.example.fasta.MyApplication;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;

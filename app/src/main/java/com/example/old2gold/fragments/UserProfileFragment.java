@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.old2gold.R;
-import com.example.old2gold.model.User;
+import com.example.fasta.R;
+import com.example.fasta.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 

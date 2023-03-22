@@ -1,6 +1,6 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
-import com.example.old2gold.enums.Size;
+import com.example.fasta.enums.Size;
 
 import java.util.ArrayList;
 import java.util.List;

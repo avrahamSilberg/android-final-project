@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,10 +21,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.old2gold.R;
-import com.example.old2gold.RegisterActivity;
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.User;
+import com.example.fasta.R;
+import com.example.fasta.RegisterActivity;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

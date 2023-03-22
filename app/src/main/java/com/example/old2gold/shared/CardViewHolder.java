@@ -1,4 +1,4 @@
-package com.example.old2gold.shared;
+package com.example.fasta.shared;
 
 import android.content.Context;
 import android.os.Build;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.old2gold.R;
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Recipe;
+import com.example.fasta.R;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.Recipe;
 import com.squareup.picasso.Picasso;
 
 public class CardViewHolder extends RecyclerView.ViewHolder{

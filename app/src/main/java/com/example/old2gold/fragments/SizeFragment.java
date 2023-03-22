@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.old2gold.R;
-import com.example.old2gold.model.ProductListRvViewModel;
-import com.example.old2gold.model.ProductSizeCB;
+import com.example.fasta.R;
+import com.example.fasta.model.ProductListRvViewModel;
+import com.example.fasta.model.ProductSizeCB;
 
 import java.util.ArrayList;
 import java.util.List;

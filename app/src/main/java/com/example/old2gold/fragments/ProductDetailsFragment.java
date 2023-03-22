@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,11 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.old2gold.R;
-import com.example.old2gold.model.FavoriteProductListRvViewModel;
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Recipe;
-import com.example.old2gold.model.User;
+import com.example.fasta.R;
+import com.example.fasta.model.FavoriteProductListRvViewModel;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.Recipe;
+import com.example.fasta.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 

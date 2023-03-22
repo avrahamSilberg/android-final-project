@@ -1,4 +1,4 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
 
 import android.os.Build;

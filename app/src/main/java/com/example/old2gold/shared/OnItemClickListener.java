@@ -1,4 +1,4 @@
-package com.example.old2gold.shared;
+package com.example.fasta.shared;
 
 import android.view.View;
 

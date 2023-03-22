@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -25,10 +25,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import com.example.old2gold.R;
-import com.example.old2gold.enums.RecipeCategory;
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Recipe;
+import com.example.fasta.R;
+import com.example.fasta.enums.RecipeCategory;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.Recipe;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;

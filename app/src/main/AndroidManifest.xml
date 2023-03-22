@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.old2gold">
+    package="com.example.fasta">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -23,7 +23,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Old2gold">
+        android:theme="@style/Theme.fasta">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -53,7 +53,7 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Old2gold.NoActionBar" />
+            android:theme="@style/Theme.fasta.NoActionBar" />
     </application>
 
 </manifest>

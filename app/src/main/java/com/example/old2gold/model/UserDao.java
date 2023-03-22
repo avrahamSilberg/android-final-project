@@ -1,4 +1,4 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

@@ -1,6 +1,6 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
-import com.example.old2gold.enums.RecipeCategory;
+import com.example.fasta.enums.RecipeCategory;
 
 import java.util.ArrayList;
 import java.util.List;

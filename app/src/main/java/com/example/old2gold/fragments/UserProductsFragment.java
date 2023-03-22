@@ -1,4 +1,4 @@
-package com.example.old2gold.fragments;
+package com.example.fasta.fragments;
 
 import android.content.Context;
 import android.os.Build;
@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.old2gold.R;
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.Recipe;
-import com.example.old2gold.model.UserProductsListRvViewModel;
-import com.example.old2gold.shared.CardViewHolder;
-import com.example.old2gold.shared.OnItemClickListener;
+import com.example.fasta.R;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.Recipe;
+import com.example.fasta.model.UserProductsListRvViewModel;
+import com.example.fasta.shared.CardViewHolder;
+import com.example.fasta.shared.OnItemClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class UserProductsFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.example.old2gold.enums;
+package com.example.fasta.enums;
 
 public enum RecipeCategory {
     BAKING("Baking"),

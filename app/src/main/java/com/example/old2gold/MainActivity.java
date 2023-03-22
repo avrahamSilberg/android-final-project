@@ -1,4 +1,4 @@
-package com.example.old2gold;
+package com.example.fasta;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,11 +10,11 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.old2gold.fragments.UserProfileFragment;
-import com.example.old2gold.model.MainViewModel;
-import com.example.old2gold.model.Model;
-import com.example.old2gold.model.User;
-import com.example.old2gold.databinding.ActivityMainBinding;
+import com.example.fasta.fragments.UserProfileFragment;
+import com.example.fasta.model.MainViewModel;
+import com.example.fasta.model.Model;
+import com.example.fasta.model.User;
+import com.example.fasta.databinding.ActivityMainBinding;
 
 
 import com.google.android.material.navigation.NavigationView;

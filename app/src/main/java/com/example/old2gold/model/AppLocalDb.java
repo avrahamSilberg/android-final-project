@@ -1,10 +1,10 @@
-package com.example.old2gold.model;
+package com.example.fasta.model;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import com.example.old2gold.MyApplication;
+import com.example.fasta.MyApplication;
 
 @Database(entities = {Recipe.class, User.class}, version = 13)
 @TypeConverters({Convertors.class})
