@@ -47,7 +47,6 @@ public class ModelFirebase {
         void onComplete(List<Recipe> list);
     }
 
-
     public interface RemoveLikedProductsListener {
         void onComplete();
     }
